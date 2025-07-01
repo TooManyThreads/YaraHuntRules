@@ -1,0 +1,37 @@
+rule crimeFilchStealer {
+
+    meta:
+        version = "1.0"
+        date = "First of July 2025"
+        author = "Ivan Feigl"
+        reference = "https://www.rapid7.com/blog/post/filch-stealer-a-new-infostealer-leveraging-old-techniques/"
+        hash1 = "DD14848556BE98040E2060CA32CE4827C0DFA0900D70A2A093082A5017DF62B4"
+        hash2 = "77538C0A8B79E791219EC362093B467AEDA33D48A66D3FA86302546D252C30DB"
+        description =  "Rule for catching both older version of Filch stealer (hash1) and the new one, which I'll reffer to as v2 (hash2)"
+
+    strings:
+    //Misc
+        $s1 = "Select * from AntivirusProduct" wide
+        $s2 = "CheckWallets" ascii 
+        $s3 = "CheckBrowserWallets" ascii 
+        $s4 = "walletname" nocase ascii
+        $s5 = "\\root\\SecurityCenter2" wide
+        $s6 = "{0} GB" wide
+    
+    //Names of Methods from Wallets | WalletPs Classes
+        $GetStarted ="GetStarted" ascii    
+        $WalletsChrome = "WalletsChrome" ascii
+        $WalletsEdge = "WalletsEdge" ascii 
+        $ArchiveWallet = "ArchiveWallet" ascii 
+        $DesktopWallet = "DesktopWallet" ascii 
+        $Closed = "Closed" ascii 
+        $AddFolderToArchive = "AddFolderToArchive" ascii 
+        $CheckWallets = "CheckWallets" ascii 
+        $CheckBrowserWallets = "CheckBrowserWallets" ascii 
+        $GetApps = "GetApps" ascii 
+
+
+    condition:
+        all of them
+
+}
